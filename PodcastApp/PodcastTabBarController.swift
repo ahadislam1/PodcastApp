@@ -16,8 +16,8 @@ class PodcastTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchVC.tabBarItem = UITabBarItem(title: "Podcasts", image: nil, tag: 0)
-        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: nil, tag: 1)
+        searchVC.tabBarItem = UITabBarItem(title: "Podcasts", image: UIImage(systemName: "play.circle"), tag: 0)
+        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart.fill"), tag: 1)
         self.viewControllers = [searchVC, favoritesVC]
     }
     
