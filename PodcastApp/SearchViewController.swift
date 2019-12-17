@@ -17,6 +17,7 @@ class SearchViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tv = UITableView()
+        tv.register(PodcastTableViewCell.self, forCellReuseIdentifier: "Podcast Cell")
         return tv
     }()
 
@@ -64,12 +65,20 @@ extension SearchViewController: UITableViewDelegate {
     }
 }
 extension SearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Podcast Cell", for: indexPath) as! PodcastTableViewCell
+        cell.podcastImageView.image = UIImage(systemName: "xmark")
+        cell.titleLabel.text = "text"
+        cell.authorLabel.text = "text1"
+        return cell
     }
     
 }
