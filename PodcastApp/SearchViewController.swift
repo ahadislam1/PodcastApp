@@ -29,13 +29,25 @@ class SearchViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
+        
     private let url = "https://itunes.apple.com/search?media=podcast&limit=200&term="
-
+    
+    private weak var delegate: FavoritesDelegate?
+    
+    init(delegate: FavoritesDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray
         setupView()
+        print(delegate?.favorites.count)
     }
     
     private func loadData() {
@@ -87,7 +99,7 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DetailViewController(), animated: true)
+        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[tableView.indexPathForSelectedRow!.row], delegate: delegate!), animated: true)
     }
 }
 extension SearchViewController: UITableViewDataSource {

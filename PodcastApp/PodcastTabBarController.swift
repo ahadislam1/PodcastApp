@@ -10,13 +10,22 @@ import UIKit
 
 class PodcastTabBarController: UITabBarController {
     
-    lazy var searchVC = UINavigationController(rootViewController: SearchViewController())
+    lazy var searchVC: UINavigationController = {
+        let vc = SearchViewController(delegate: self)
+        return UINavigationController(rootViewController: vc)
+    }()
     
-    lazy var favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
+    lazy var favoritesVC: UINavigationController = {
+        let vc = FavoritesViewController(delegate: self)
+        return UINavigationController(rootViewController: vc)
+    }()
+    
+    internal var favorites = [Favorite]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateFavorites()
         configureView()
     }
     
@@ -39,4 +48,19 @@ class PodcastTabBarController: UITabBarController {
      }
      */
     
+}
+
+extension PodcastTabBarController: FavoritesDelegate {
+    func updateFavorites() {
+        let endpointURL = "https://5c2e2a592fffe80014bd6904.mockapi.io/api/v1/favorites"
+        GenericCoderService.manager.getJSON(objectType: [Favorite].self, with: endpointURL) { result in
+            switch result {
+            case .failure(let error):
+                print("Error occurred getting JSON: \(error)")
+            case .success(let favoritesFromAPI):
+                self.favorites = favoritesFromAPI.filter({$0.favoritedBy == "Ahad"})
+                print(self.favorites.count)
+            }
+        }
+    }
 }

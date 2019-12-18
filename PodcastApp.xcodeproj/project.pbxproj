@@ -24,6 +24,7 @@
 		E18406B423A95C530054F6AA /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18406B323A95C530054F6AA /* Podcast.swift */; };
 		E18406B623A95CF50054F6AA /* PodcastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18406B523A95CF50054F6AA /* PodcastTableViewCell.swift */; };
 		E18406BA23A960A20054F6AA /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18406B923A960A20054F6AA /* Favorite.swift */; };
+		E18406BC23AA12550054F6AA /* FavoritesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18406BB23AA12550054F6AA /* FavoritesDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		E18406B323A95C530054F6AA /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		E18406B523A95CF50054F6AA /* PodcastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastTableViewCell.swift; sourceTree = "<group>"; };
 		E18406B923A960A20054F6AA /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		E18406BB23AA12550054F6AA /* FavoritesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +110,11 @@
 				E18406B323A95C530054F6AA /* Podcast.swift */,
 				E18406B923A960A20054F6AA /* Favorite.swift */,
 				E18406B523A95CF50054F6AA /* PodcastTableViewCell.swift */,
+				E18406BB23AA12550054F6AA /* FavoritesDelegate.swift */,
 				E143E9FA23A93FCC00BA07E0 /* PodcastTabBarController.swift */,
 				E143E9DC23A93ECA00BA07E0 /* SearchViewController.swift */,
-				E143E9FC23A9432500BA07E0 /* FavoritesViewController.swift */,
 				E143E9FE23A9432C00BA07E0 /* DetailViewController.swift */,
+				E143E9FC23A9432500BA07E0 /* FavoritesViewController.swift */,
 				E143E9DE23A93ECA00BA07E0 /* Main.storyboard */,
 				E143E9E123A93ECE00BA07E0 /* Assets.xcassets */,
 				E143E9E323A93ECE00BA07E0 /* LaunchScreen.storyboard */,
@@ -230,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18406BC23AA12550054F6AA /* FavoritesDelegate.swift in Sources */,
 				E18406B023A959C30054F6AA /* UIImageView+Extension.swift in Sources */,
 				E18406AC23A9592E0054F6AA /* NetworkHelper.swift in Sources */,
 				E18406BA23A960A20054F6AA /* Favorite.swift in Sources */,

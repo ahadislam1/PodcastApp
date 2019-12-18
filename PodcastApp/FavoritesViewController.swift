@@ -14,6 +14,17 @@ class FavoritesViewController: UIViewController {
         let tv = UITableView()
         return tv
     }()
+    
+    private weak var delegate: FavoritesDelegate?
+    
+    init(delegate: FavoritesDelegate) {
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
