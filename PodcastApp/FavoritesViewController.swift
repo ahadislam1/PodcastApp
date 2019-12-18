@@ -41,6 +41,11 @@ class FavoritesViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadData()
+    }
+    
     private func loadData() {
         guard let delegate = delegate else { return }
         
@@ -81,7 +86,7 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[tableView.indexPathForSelectedRow!.row], delegate: delegate!), animated: true)
+        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[indexPath.row], delegate: delegate!), animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

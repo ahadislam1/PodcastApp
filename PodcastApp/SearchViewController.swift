@@ -98,7 +98,7 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[tableView.indexPathForSelectedRow!.row], delegate: delegate!), animated: true)
+        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[indexPath.row], delegate: delegate!), animated: true)
     }
 }
 extension SearchViewController: UITableViewDataSource {
@@ -115,6 +115,7 @@ extension SearchViewController: UITableViewDataSource {
             print("Cell could not be formed as pocastviewcell.")
             return UITableViewCell()
         }
+        
         let podcast = podcasts[indexPath.row]
         cell.titleLabel.text = podcast.collectionName
         cell.authorLabel.text = podcast.artistName
