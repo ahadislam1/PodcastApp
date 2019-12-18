@@ -47,7 +47,6 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray
         setupView()
-        print(delegate?.favorites.count)
     }
     
     private func loadData() {

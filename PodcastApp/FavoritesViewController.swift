@@ -12,10 +12,19 @@ class FavoritesViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tv = UITableView()
+        tv.register(PodcastTableViewCell.self, forCellReuseIdentifier: "Podcast Cell")
         return tv
     }()
     
     private weak var delegate: FavoritesDelegate?
+    
+    private var podcasts = [Podcast]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
+    private let stupidPointURL = "https://itunes.apple.com/lookup?id="
     
     init(delegate: FavoritesDelegate) {
         self.delegate = delegate
@@ -28,7 +37,25 @@ class FavoritesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
         setupView()
+    }
+    
+    private func loadData() {
+        guard let delegate = delegate else { return }
+        
+        let numbers = delegate.favorites
+            .map({String($0.trackId)})
+            .joined(separator: ",")
+        
+        GenericCoderService.manager.getJSON(objectType: PodcastWrapper.self, with: stupidPointURL + numbers) { result in
+            switch result {
+            case .failure(let error):
+                print("Error occured getting JSON: \(error)")
+            case .success(let wrapper):
+                self.podcasts = wrapper.results
+            }
+        }
     }
     
     private func setupView() {
@@ -51,14 +78,42 @@ class FavoritesViewController: UIViewController {
     }
 }
 
-extension FavoritesViewController: UITableViewDelegate {}
-extension FavoritesViewController: UITableViewDataSource {
+extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.navigationController?.pushViewController(DetailViewController(podcast: podcasts[tableView.indexPathForSelectedRow!.row], delegate: delegate!), animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return podcasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Podcast Cell", for: indexPath) as? PodcastTableViewCell else {
+            print("Cell could not be formed as pocastviewcell.")
+            return UITableViewCell()
+        }
+        
+        let podcast = podcasts[indexPath.row]
+        cell.titleLabel.text = podcast.collectionName
+        cell.authorLabel.text = podcast.artistName
+        
+        cell.podcastImageView.getImage(with: podcast.artworkUrl600) { result in
+            switch result {
+            case .failure(let error):
+                print("Error occurred getting image :\(error)")
+                cell.podcastImageView.image = UIImage(systemName: "xmark.fill")
+            case .success(let image):
+                DispatchQueue.main.async {
+                    cell.podcastImageView.image = image
+                }
+            }
+        }
+        return cell
     }
     
 }

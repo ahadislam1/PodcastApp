@@ -63,5 +63,13 @@ class PodcastAppTests: XCTestCase {
         }
         wait(for: [exp], timeout: 20)
     }
+    
+    func testSomethingImNotSure() {
+        let endpointURL = "https://itunes.apple.com/lookup?id=1435076502,477534265"
+        let stupidPointURL = "https://itunes.apple.com/lookup?id="
+        let numberArr = ["1435076502", "477534265"]
+        let something = numberArr.joined(separator: ",")
+        XCTAssertEqual(endpointURL, stupidPointURL + something)
+    }
 
 }

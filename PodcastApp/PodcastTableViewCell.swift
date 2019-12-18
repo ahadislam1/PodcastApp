@@ -36,6 +36,10 @@ class PodcastTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        podcastImageView.image = nil
+    }
+    
     private func configureView() {
         contentView.addSubview(podcastImageView)
         
